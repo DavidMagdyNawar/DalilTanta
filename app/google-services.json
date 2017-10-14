@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "916065203353",
+    "firebase_url": "https://daliltanta.firebaseio.com",
+    "project_id": "daliltanta",
+    "storage_bucket": "daliltanta.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:916065203353:android:202af001e2de359d",
+        "android_client_info": {
+          "package_name": "com.daliltanta"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "916065203353-s7h2o57p8f38ujai8r0168v4cgkeo70m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.daliltanta",
+            "certificate_hash": "3c948305148698b7a9b1eea7f4909bf8826fe7f3"
+          }
+        },
+        {
+          "client_id": "916065203353-1aa5ghcosofnfcl02se05btgqn8as4iq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiOlbGRSe_uPPFd2FMTywfQJIsN42ViaE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "916065203353-1aa5ghcosofnfcl02se05btgqn8as4iq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

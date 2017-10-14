@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">دليل طنطا</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="Comment">تفاصيل اكتر</string>
+    <string name="categorie">نوعه</string>
+    <string name="Have">عندي</string>
+    <string name="loginAsShop">الدخول كمحل</string>
+    <string name="loginAssUser">الدخول كمستخدم</string>
+    <string name="name">اسم المحل</string>
+    <string name="address">العنوان</string>
+    <string name="auth_failed">auth failed</string>
+    <string name="betdawar">بتدور علي اية ؟</string>
+    <string name="imageToUpload">صورة</string>
+    <string name="seeb_comment">اوصف لنا بتدور على اية...</string>
+    <string name="wada7">وضح لنا بصورة</string>
+    <string name="yalla">يلا</string>
+    <string name="shof8erak">شوف غيرك بيدور على اية ..</string>
+
+</resources>
