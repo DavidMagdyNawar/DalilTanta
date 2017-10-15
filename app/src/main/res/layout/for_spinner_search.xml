@@ -7,4 +7,4 @@
     android:ellipsize="marquee"
     android:textSize="18sp"
     android:layout_gravity="right"
-    android:text="@string/betdawar" />
+    android:text="@string/looking_for" />

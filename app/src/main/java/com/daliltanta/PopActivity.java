@@ -3,8 +3,6 @@ package com.daliltanta;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -23,7 +21,6 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
-import com.daliltanta.mRecyclerView.MyAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -68,7 +65,7 @@ public class PopActivity extends android.support.v4.app.DialogFragment implement
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        betdawatEditText = (EditText) view.findViewById(R.id.betdawarEditText);
+//        betdawatEditText = (EditText) view.findViewById(R.id.betdawarEditText);
         imageToIpload = (ImageButton) view.findViewById(R.id.itemImageToUpload);
         switchkey = (Switch) view.findViewById(R.id.switch1);
         IsUploadedIV = (ImageView) view.findViewById(R.id.IsUploadedIV);
@@ -76,7 +73,7 @@ public class PopActivity extends android.support.v4.app.DialogFragment implement
         buttonclose = (Button) view.findViewById(R.id.buttonclose);
         buttonYalla = (Button) view.findViewById(R.id.yallaButton);
         databaseReference = FirebaseDatabase.getInstance().getReference();
-        spinnerSearch = (Spinner) view.findViewById(R.id.SpinnerCategorieSearch);
+//        spinnerSearch = (Spinner) view.findViewById(R.id.SpinnerCategorieSearch);
         spinnerSearch.setOnItemSelectedListener(this);
         getItemCategories();
 
@@ -168,37 +165,37 @@ public class PopActivity extends android.support.v4.app.DialogFragment implement
 
     private void getItemCategories() {
 
-        try {
-            databaseReference.child("clothes").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.getValue() != null) {
-                        mapData = (HashMap<String, String>) dataSnapshot.getValue();
-                        ArrayValuesItemCat = new ArrayList<>(mapData.keySet());
-
-                        adapter = new ArrayAdapter<String>(getContext(),
-                                android.R.layout.simple_spinner_item, ArrayValuesItemCat);
-
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinnerSearch.setAdapter(adapter);
-
-                        spinnerSearch.setAdapter(
-                                new NothingSelectedSpinnerAdapter(
-                                        adapter,
-                                        R.layout.for_spinner_search,
-                                        getContext()));
-                    }
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            databaseReference.child("clothes").addValueEventListener(new ValueEventListener() {
+//                @Override
+//                public void onDataChange(DataSnapshot dataSnapshot) {
+//                    if (dataSnapshot.getValue() != null) {
+//                        mapData = (HashMap<String, String>) dataSnapshot.getValue();
+//                        ArrayValuesItemCat = new ArrayList<>(mapData.keySet());
+//
+//                        adapter = new ArrayAdapter<String>(getContext(),
+//                                android.R.layout.simple_spinner_item, ArrayValuesItemCat);
+//
+//                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//                        spinnerSearch.setAdapter(adapter);
+//
+//                        spinnerSearch.setAdapter(
+//                                new NothingSelectedSpinnerAdapter(
+//                                        adapter,
+//                                        R.layout.for_spinner_search,
+//                                        getContext()));
+//                    }
+//
+//                }
+//
+//                @Override
+//                public void onCancelled(DatabaseError databaseError) {
+//
+//                }
+//            });
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
     }
 }
