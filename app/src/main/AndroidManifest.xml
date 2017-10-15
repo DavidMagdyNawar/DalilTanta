@@ -22,7 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LoginngScreens.Logging_User_Shop_Activity"></activity>
     </application>
 
 </manifest>

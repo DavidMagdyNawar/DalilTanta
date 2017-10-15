@@ -11,15 +11,15 @@ android:orientation="vertical">
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         >
-        <Spinner
-            android:id="@+id/SpinnerCategorieSearch"
-            android:layout_width="wrap_content"
-            android:layout_gravity="right"
-            android:prompt="@string/betdawar"
-            android:layout_alignParentRight="true"
-            android:layout_height="wrap_content">
+        <!--<Spinner-->
+            <!--android:id="@+id/SpinnerCategorieSearch"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_gravity="right"-->
+            <!--android:prompt="@string/"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_height="wrap_content">-->
 
-        </Spinner>
+        <!--</Spinner>-->
 
 <LinearLayout
     android:id="@+id/switchLinearLayout"
@@ -59,18 +59,18 @@ android:orientation="vertical">
 
     </RelativeLayout>
 
-<EditText
+<!--<EditText-->
 
-    android:id="@+id/betdawarEditText"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:layout_marginEnd="4dp"
-    android:layout_marginStart="4dp"
-    android:hint="@string/seeb_comment"
-    android:background="@android:color/transparent"
-    android:gravity="top"
-    android:layout_weight="1" />
+    <!--android:id="@+id/betdawarEditText"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_marginEnd="4dp"-->
+    <!--android:layout_marginStart="4dp"-->
+    <!--android:hint="@string/seeb_comment"-->
+    <!--android:background="@android:color/transparent"-->
+    <!--android:gravity="top"-->
+    <!--android:layout_weight="1" />-->
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -115,7 +115,7 @@ android:orientation="vertical">
         android:gravity="center"
         android:layout_marginTop="12dp"
         android:layout_alignParentRight="true"
-        android:text="@string/wada7"
+        android:text="@string/upload_image"
         android:layout_marginRight="12dp"/>
     <ImageButton
 

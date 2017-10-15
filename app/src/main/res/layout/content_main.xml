@@ -1,37 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/scrollView"
-    android:layout_margin="4dp">
-<LinearLayout
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="12dp"
-    android:id="@+id/myLinearLayout">
+    android:layout_height="wrap_content"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:id="@+id/myLinearLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <com.daimajia.slider.library.SliderLayout
-            android:id="@+id/slider"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
+        <!--<com.daimajia.slider.library.SliderLayout-->
+            <!--android:id="@+id/slider"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="200dp"-->
 
-            />
+            <!--/>-->
 
-        <com.daimajia.slider.library.Indicators.PagerIndicator
-            android:id="@+id/custom_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            />
-    <Spinner
-        android:id="@+id/SpinnerCategorieHome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="8dp"
-        android:prompt="@string/betdawar"
-        ></Spinner>
+        <!--<com.daimajia.slider.library.Indicators.PagerIndicator-->
+            <!--android:id="@+id/custom_indicator"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center"-->
+            <!--/>-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -41,4 +29,3 @@
         </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
-    </ScrollView>
