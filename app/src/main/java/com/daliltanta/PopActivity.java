@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class PopActivity extends android.support.v4.app.DialogFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class PopActivity extends android.support.v4.app.DialogFragment {
     View view;
     EditText betdawatEditText;
     ImageButton imageToIpload;
@@ -42,13 +42,11 @@ public class PopActivity extends android.support.v4.app.DialogFragment implement
     RelativeLayout imageRelativeLO;
     Button buttonclose;
     Button buttonYalla;
-    Spinner spinnerSearch;
     private static final int PICK_IMAGE = 100;
     private DatabaseReference databaseReference;
     private Map<String, String> mapData = new HashMap<>();
     private ArrayList<String> ArrayValuesItemCat;
     private ArrayAdapter<String> adapter;
-    private String actualPositionOfMySpinner = "";
 
 
     @Override
@@ -74,35 +72,10 @@ public class PopActivity extends android.support.v4.app.DialogFragment implement
         buttonYalla = (Button) view.findViewById(R.id.yallaButton);
         databaseReference = FirebaseDatabase.getInstance().getReference();
 //        spinnerSearch = (Spinner) view.findViewById(R.id.SpinnerCategorieSearch);
-        spinnerSearch.setOnItemSelectedListener(this);
         getItemCategories();
 
 
-        buttonYalla.setOnClickListener(new View.OnClickListener() {
-                                           @Override
-                                           public void onClick(View v) {
 
-                                               String privacy = "public";
-                                               String description = "";
-                                               String imageUri;
-
-                                                if(!actualPositionOfMySpinner.equals(""))
-                                                {
-                                                    if (switchkey.isChecked()) {
-                                                        privacy = "private";
-                                                    }
-                                                    description = betdawatEditText.getText().toString();
-                                                    Toast.makeText(getContext(), "is Selected", Toast.LENGTH_SHORT).show();
-                                                }
-                                                else {
-                                                    Toast.makeText(getContext(), "chosse from spinnnnerr yalaa", Toast.LENGTH_SHORT).show();
-                                                }
-
-                                           }
-
-                                       }
-        )
-        ;
 
     }
 
@@ -141,27 +114,12 @@ public class PopActivity extends android.support.v4.app.DialogFragment implement
     }
 
 
-    @Override
-    public void onClick(View v) {
-        Button button = (Button) view;
-
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-         actualPositionOfMySpinner = String.valueOf(spinnerSearch.getSelectedItemPosition());
-
-    }
 
 
 
 
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
 
-        Toast.makeText(getContext(), "Please choose from spinner", Toast.LENGTH_SHORT).show();
 
-    }
 
     private void getItemCategories() {
 
