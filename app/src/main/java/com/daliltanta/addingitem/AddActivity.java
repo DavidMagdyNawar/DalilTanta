@@ -1,4 +1,4 @@
-package com.daliltanta;
+package com.daliltanta.addingitem;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.daliltanta.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class PopActivity extends android.support.v4.app.DialogFragment {
+public class AddActivity extends android.support.v4.app.DialogFragment {
     View view;
     EditText betdawatEditText;
     ImageButton imageToIpload;

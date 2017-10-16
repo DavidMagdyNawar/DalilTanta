@@ -1,10 +1,10 @@
-package com.daliltanta;
+package com.daliltanta.data;
 
 /**
  * Created by David on 10/16/2017.
  */
 
-public class MyItem {
+public class Item {
 
     String item_privacy;
     String item_details;
@@ -12,7 +12,7 @@ public class MyItem {
     String ite_category;
     String item_imageURI;
 
-    public MyItem(String item_privacy, String item_details, String ite_category, String item_imageURI) {
+    public Item(String item_privacy, String item_details, String ite_category, String item_imageURI) {
 
         this.item_privacy = item_privacy;
         this.item_details = item_details;
