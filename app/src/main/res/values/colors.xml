@@ -11,4 +11,5 @@
         <item name="tab_3">#F86A6C</item>
 
     </array>
+    <color name="textColorPrimary">#fdfdfd</color>
 </resources>
