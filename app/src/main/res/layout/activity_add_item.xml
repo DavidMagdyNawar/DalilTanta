@@ -53,30 +53,35 @@ android:orientation="vertical">
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:paddingLeft="4dp"
+        android:paddingStart="4dp"
         android:paddingRight="12dp"
+        android:paddingEnd="12dp"
         android:src="@drawable/ic_lock" />
 </LinearLayout>
 
     </RelativeLayout>
 
-<!--<EditText-->
+<EditText
 
-    <!--android:id="@+id/betdawarEditText"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:layout_marginEnd="4dp"-->
-    <!--android:layout_marginStart="4dp"-->
-    <!--android:hint="@string/seeb_comment"-->
-    <!--android:background="@android:color/transparent"-->
-    <!--android:gravity="top"-->
-    <!--android:layout_weight="1" />-->
+    android:id="@+id/betdawarEditText"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_marginEnd="4dp"
+    android:layout_marginStart="4dp"
+    android:hint="@string/Comment"
+    android:background="@android:color/transparent"
+    android:gravity="top"
+    android:layout_weight="1" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_marginStart="4dp"
         android:background="@android:color/darker_gray"
-    android:layout_marginEnd="4dp"></View>
+    android:layout_marginEnd="4dp">
+
+    </View>
 
 <RelativeLayout
     android:id="@+id/imageRelativeLO"
@@ -97,7 +102,9 @@ android:orientation="vertical">
         android:layout_height="24dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/ic_close_black_24dp"/>
 
 </RelativeLayout>
@@ -115,8 +122,10 @@ android:orientation="vertical">
         android:gravity="center"
         android:layout_marginTop="12dp"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:text="@string/upload_image"
-        android:layout_marginRight="12dp"/>
+        android:layout_marginRight="12dp"
+        android:layout_marginEnd="12dp"/>
     <ImageButton
 
         android:id="@+id/itemImageToUpload"
@@ -124,6 +133,7 @@ android:orientation="vertical">
         android:layout_height="42dp"
         android:layout_gravity="right"
         android:layout_toLeftOf="@id/wada7lena"
+        android:layout_toStartOf="@id/wada7lena"
         android:layout_margin="12dp"
         android:background="@null"
         android:src="@drawable/ic_image"
@@ -133,9 +143,12 @@ android:orientation="vertical">
         android:id="@+id/yallaButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="يلا"
+        android:text="@string/Done"
         android:layout_margin="12dp"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        />
+
 </RelativeLayout>
 
 </LinearLayout>
