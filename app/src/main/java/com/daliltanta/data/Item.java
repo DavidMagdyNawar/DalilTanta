@@ -1,53 +1,44 @@
 package com.daliltanta.data;
 
+import java.util.List;
+
 /**
  * Created by David on 10/16/2017.
  */
 
 public class Item {
-
-    String item_privacy;
-    String item_details;
     final String item_approvaed = "false";
-    String ite_category;
-    String item_imageURI;
+    String image;
+    String item_privacy;
+    String item_description;
+    String item_categorie_id;
+    String user_id;
+    String item_request_id;
+    List<String> shop_IDs;
 
-    public Item(String item_privacy, String item_details, String ite_category, String item_imageURI) {
-
+    public Item(String image, String item_privacy, String item_description,
+                String item_categorie_id, String user_id, String item_request_id, List<String> shop_IDs)
+    {
+        this.image = image;
         this.item_privacy = item_privacy;
-        this.item_details = item_details;
-        this.ite_category = ite_category;
-        this.item_imageURI = item_imageURI;
-    }
-
-    public String getItem_details() {
-        return item_details;
-    }
-
-    public void setItem_details(String item_details) {
-        this.item_details = item_details;
+        this.item_description = item_description;
+        this.item_categorie_id = item_categorie_id;
+        this.user_id = user_id;
+        this.item_request_id = item_request_id;
+        this.shop_IDs = shop_IDs;
     }
 
     public String getItem_approvaed() {
         return item_approvaed;
     }
 
-    public String getIte_category() {
-        return ite_category;
+    public String getImage() {
+        return image;
     }
 
-    public void setIte_category(String ite_category) {
-        this.ite_category = ite_category;
+    public void setImage(String image) {
+        this.image = image;
     }
-
-    public String getItem_imageURI() {
-        return item_imageURI;
-    }
-
-    public void setItem_imageURI(String item_imageURI) {
-        this.item_imageURI = item_imageURI;
-    }
-
 
     public String getItem_privacy() {
         return item_privacy;
@@ -57,5 +48,48 @@ public class Item {
         this.item_privacy = item_privacy;
     }
 
+    public String getItem_description() {
+        return item_description;
+    }
+
+    public void setItem_description(String item_description) {
+        this.item_description = item_description;
+    }
+
+    public String getItem_categorie_id() {
+        return item_categorie_id;
+    }
+
+    public void setItem_categorie_id(String item_categorie_id) {
+        this.item_categorie_id = item_categorie_id;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getItem_request_id() {
+        return item_request_id;
+    }
+
+    public void setItem_request_id(String item_request_id) {
+        this.item_request_id = item_request_id;
+    }
+
+    public List<String> getShop_IDs() {
+        return shop_IDs;
+    }
+
+    public void setShop_IDs(List<String> shop_IDs) {
+        this.shop_IDs = shop_IDs;
+    }
+
 
 }
+
+
+
