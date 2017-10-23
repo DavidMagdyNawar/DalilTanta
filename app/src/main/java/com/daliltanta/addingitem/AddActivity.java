@@ -43,6 +43,7 @@ public class AddActivity extends android.support.v4.app.DialogFragment {
     RelativeLayout imageRelativeLO;
     Button buttonclose;
     Button buttonYalla;
+    Spinner spinnerSearch;
     private static final int PICK_IMAGE = 100;
     private DatabaseReference databaseReference;
     private Map<String, String> mapData = new HashMap<>();
@@ -72,7 +73,7 @@ public class AddActivity extends android.support.v4.app.DialogFragment {
         buttonclose = (Button) view.findViewById(R.id.buttonclose);
         buttonYalla = (Button) view.findViewById(R.id.yallaButton);
         databaseReference = FirebaseDatabase.getInstance().getReference();
-//        spinnerSearch = (Spinner) view.findViewById(R.id.SpinnerCategorieSearch);
+        spinnerSearch = (Spinner) view.findViewById(R.id.SpinnerCategorieSearch);
         getItemCategories();
 
 
@@ -124,37 +125,37 @@ public class AddActivity extends android.support.v4.app.DialogFragment {
 
     private void getItemCategories() {
 
-//        try {
-//            databaseReference.child("clothes").addValueEventListener(new ValueEventListener() {
-//                @Override
-//                public void onDataChange(DataSnapshot dataSnapshot) {
-//                    if (dataSnapshot.getValue() != null) {
-//                        mapData = (HashMap<String, String>) dataSnapshot.getValue();
-//                        ArrayValuesItemCat = new ArrayList<>(mapData.keySet());
-//
-//                        adapter = new ArrayAdapter<String>(getContext(),
-//                                android.R.layout.simple_spinner_item, ArrayValuesItemCat);
-//
-//                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                        spinnerSearch.setAdapter(adapter);
-//
-//                        spinnerSearch.setAdapter(
-//                                new NothingSelectedSpinnerAdapter(
-//                                        adapter,
-//                                        R.layout.for_spinner_search,
-//                                        getContext()));
-//                    }
-//
-//                }
-//
-//                @Override
-//                public void onCancelled(DatabaseError databaseError) {
-//
-//                }
-//            });
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            databaseReference.child("clothes").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.getValue() != null) {
+                        mapData = (HashMap<String, String>) dataSnapshot.getValue();
+                        ArrayValuesItemCat = new ArrayList<>(mapData.keySet());
+
+                        adapter = new ArrayAdapter<String>(getContext(),
+                                android.R.layout.simple_spinner_item, ArrayValuesItemCat);
+
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinnerSearch.setAdapter(adapter);
+
+                        spinnerSearch.setAdapter(
+                                new NothingSelectedSpinnerAdapter(
+                                        adapter,
+                                        R.layout.for_spinner_search,
+                                        getContext()));
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 }
