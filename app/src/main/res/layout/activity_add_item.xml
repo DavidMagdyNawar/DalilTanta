@@ -14,7 +14,7 @@ android:orientation="vertical">
         <Spinner
             android:id="@+id/SpinnerCategorieSearch"
             android:layout_width="wrap_content"
-            android:layout_gravity="left"
+            android:layout_gravity="right"
             android:prompt="@string/looking_for"
             android:layout_alignParentRight="true"
             android:layout_height="wrap_content">
@@ -63,7 +63,7 @@ android:orientation="vertical">
 
 <EditText
 
-    android:id="@+id/betdawarEditText"
+    android:id="@+id/description_editText"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
@@ -140,7 +140,7 @@ android:orientation="vertical">
         />
 
     <Button
-        android:id="@+id/yallaButton"
+        android:id="@+id/Done"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Done"

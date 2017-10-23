@@ -16,6 +16,9 @@ public class Item {
     String item_request_id;
     List<String> shop_IDs;
 
+    public Item() {
+    }
+
     public Item(String image, String item_privacy, String item_description,
                 String item_categorie_id, String user_id, String item_request_id, List<String> shop_IDs)
     {

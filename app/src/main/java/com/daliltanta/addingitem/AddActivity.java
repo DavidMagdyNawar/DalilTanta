@@ -22,6 +22,7 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.daliltanta.R;
+import com.daliltanta.data.Item;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,22 +34,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class AddActivity extends android.support.v4.app.DialogFragment {
+public class AddActivity extends android.support.v4.app.DialogFragment implements AdapterView.OnItemSelectedListener, View.OnClickListener {
     View view;
-    EditText betdawatEditText;
+    EditText description_editText;
     ImageButton imageToIpload;
     Switch switchkey;
     Uri imageUri;
     ImageView IsUploadedIV;
     RelativeLayout imageRelativeLO;
     Button buttonclose;
-    Button buttonYalla;
+    Button Done;
     Spinner spinnerSearch;
     private static final int PICK_IMAGE = 100;
     private DatabaseReference databaseReference;
     private Map<String, String> mapData = new HashMap<>();
     private ArrayList<String> ArrayValuesItemCat;
     private ArrayAdapter<String> adapter;
+    //Strings for validation
+    String spinnerItemSelected="";
+    String descriptionString,privacyString;
+    Item item = new Item ();
+    private boolean firestTrigger=false;
 
 
     @Override
@@ -65,23 +71,38 @@ public class AddActivity extends android.support.v4.app.DialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        betdawatEditText = (EditText) view.findViewById(R.id.betdawarEditText);
+        description_editText = (EditText) view.findViewById(R.id.description_editText);
         imageToIpload = (ImageButton) view.findViewById(R.id.itemImageToUpload);
         switchkey = (Switch) view.findViewById(R.id.switch1);
         IsUploadedIV = (ImageView) view.findViewById(R.id.IsUploadedIV);
         imageRelativeLO = (RelativeLayout) view.findViewById(R.id.imageRelativeLO);
         buttonclose = (Button) view.findViewById(R.id.buttonclose);
-        buttonYalla = (Button) view.findViewById(R.id.yallaButton);
+        Done = (Button) view.findViewById(R.id.Done);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         spinnerSearch = (Spinner) view.findViewById(R.id.SpinnerCategorieSearch);
+        spinnerSearch.setOnItemSelectedListener(this);
         getItemCategories();
 
+        Done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            item.setItem_description(description_editText.getText().toString());
+                if(switchkey.isChecked()){
+                    item.setItem_privacy("private");
+                }
+                else if (!switchkey.isChecked()){
+                    item.setItem_privacy("public");
+                }
+//                item.setImage(image);
 
+                if(item.getItem_categorie_id()==null)
+                {
+                    Toast.makeText(getContext(), "choose from spinner", Toast.LENGTH_SHORT).show();
+                }
 
-
+            }
+        });
     }
-
-
 
     @Override
     public void onStart() {
@@ -100,7 +121,6 @@ public class AddActivity extends android.support.v4.app.DialogFragment {
         buttonclose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                IsUploadedIV.setImageURI(null);
                 imageRelativeLO.setVisibility(View.GONE);
             }
         });
@@ -114,14 +134,6 @@ public class AddActivity extends android.support.v4.app.DialogFragment {
         return view;
 
     }
-
-
-
-
-
-
-
-
 
     private void getItemCategories() {
 
@@ -158,5 +170,27 @@ public class AddActivity extends android.support.v4.app.DialogFragment {
         }
 
     }
+
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if (!firestTrigger)
+        firestTrigger=true;
+        else
+        item.setItem_categorie_id(ArrayValuesItemCat.get(position));
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
+
 }
 
