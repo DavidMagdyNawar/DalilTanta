@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/tools"
+    android:layout_width="150dp"
+    android:layout_height="150dp"
+    android:layout_margin="8dp"
+    android:layout_gravity="center"
+    app:cardCornerRadius="8dp"
+
+    >
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/main_gradient"
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            app:srcCompat="@drawable/ic_clothes"
+            android:layout_gravity="center"
+            />
+        <com.daliltanta.UI.FontTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="8dp"
+            android:maxLines="1"
+            android:lines="1"
+            custom:fontAsset="assets/Mada-Medium.ttf"
+            android:textColor="#FDFDFD"
+            android:text="Clothes"/>
+    </FrameLayout>
+
+</android.support.v7.widget.CardView>
