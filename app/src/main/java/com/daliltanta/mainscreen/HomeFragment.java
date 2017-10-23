@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
                 if(!imageList.equals(null))
                 {
                 for(int i = 0 ; i<imageList.size();i++){
-                    TextSliderView defaultSliderView = new TextSliderView(getActivity());
+                    DefaultSliderView defaultSliderView = new DefaultSliderView(getActivity());
 
                     defaultSliderView
                             .image(imageList.get(i))
