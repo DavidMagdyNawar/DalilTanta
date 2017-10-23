@@ -11,15 +11,15 @@ android:orientation="vertical">
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         >
-        <!--<Spinner-->
-            <!--android:id="@+id/SpinnerCategorieSearch"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_gravity="right"-->
-            <!--android:prompt="@string/"-->
-            <!--android:layout_alignParentRight="true"-->
-            <!--android:layout_height="wrap_content">-->
+        <Spinner
+            android:id="@+id/SpinnerCategorieSearch"
+            android:layout_width="wrap_content"
+            android:layout_gravity="left"
+            android:prompt="@string/looking_for"
+            android:layout_alignParentRight="true"
+            android:layout_height="wrap_content">
 
-        <!--</Spinner>-->
+        </Spinner>
 
 <LinearLayout
     android:id="@+id/switchLinearLayout"
