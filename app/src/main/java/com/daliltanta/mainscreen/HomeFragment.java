@@ -47,7 +47,7 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
     FloatingActionButton floatingActionButton = null;
     private RecyclerView recyclerView;
     private DatabaseReference databaseReference;
-    DefaultSliderView defaultSliderView;
+
 
     public HomeFragment() {
         // Requires empty public constructor
@@ -66,7 +66,6 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
         sliderShow.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         sliderShow.setCustomAnimation(new DescriptionAnimation());
         sliderShow.setDuration(4000);
-        defaultSliderView = new DefaultSliderView(getContext());
 
         floatingActionButton = (FloatingActionButton) root.findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +107,7 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
                 if(!imageList.equals(null))
                 {
                 for(int i = 0 ; i<imageList.size();i++){
+                    DefaultSliderView defaultSliderView = new DefaultSliderView(getContext());
 
                     defaultSliderView
                             .image(imageList.get(i))
