@@ -28,6 +28,7 @@ dependencies {
     })
 
 
+    compile 'me.wangyuwei:banner:1.0.9'
 
 
     compile 'com.android.support:appcompat-v7:25.3.1'
