@@ -62,6 +62,10 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
         databaseReference = FirebaseDatabase.getInstance().getReference();
         View root = inflater.inflate(R.layout.home_fragment, container, false);
         sliderShow = (SliderLayout) root.findViewById(R.id.slider);
+        sliderShow.setPresetTransformer(SliderLayout.Transformer.Fade);
+        sliderShow.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        sliderShow.setCustomAnimation(new DescriptionAnimation());
+        sliderShow.setDuration(4000);
         defaultSliderView = new DefaultSliderView(getContext());
 
         floatingActionButton = (FloatingActionButton) root.findViewById(R.id.fab);
@@ -110,10 +114,7 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
                             .setScaleType(BaseSliderView.ScaleType.Fit);
                     sliderShow.addSlider(defaultSliderView);
 
-                    sliderShow.setPresetTransformer(SliderLayout.Transformer.Fade);
-                    sliderShow.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-                    sliderShow.setCustomAnimation(new DescriptionAnimation());
-                    sliderShow.setDuration(4000);
+
 
                 }
                 }
@@ -133,6 +134,12 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
         sliderShow.stopAutoCycle();
 
         super.onStop();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        sliderShow.startAutoCycle();
     }
 
     @Override
