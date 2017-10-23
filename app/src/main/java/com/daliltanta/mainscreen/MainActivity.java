@@ -1,6 +1,10 @@
 package com.daliltanta.mainscreen;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +15,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
 import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
@@ -64,7 +70,7 @@ public class MainActivity extends AppCompatActivity  {
         bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#FDFDFD"));
         bottomNavigation.setAccentColor(Color.parseColor("#F86A6C"));
         bottomNavigation.setInactiveColor(Color.parseColor("#FA627A"));
-        bottomNavigation.setForceTint(true);
+        bottomNavigation.setForceTint(false);
         bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
             @Override
             public boolean onTabSelected(int position, boolean wasSelected) {
