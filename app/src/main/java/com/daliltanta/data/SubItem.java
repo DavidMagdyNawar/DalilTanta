@@ -8,16 +8,16 @@ import java.lang.String;
  */
 
 public class SubItem {
-    String SubItem_approved = "false";
-    String SubItemImage;
-    String SubItem_privacy;
-    String SubItem_description;
+    private String SubItem_approved = "false";
+    private String SubItemImage;
+    private String SubItem_privacy;
+    private String SubItem_description;
     //SubItem_id is the categorie ID
-    String SubItem_id;
-    String SubItem_user_id;
+    private String SubItem_id;
+    private String SubItem_user_id;
     //SubItem_request_id is the item ID
-    public String SubItem_request_id;
-    HashMap<String,String> SubItem_shop_IDs;
+    private String SubItem_request_id;
+    private HashMap<String,String> SubItem_shop_IDs;
 
     public SubItem() {
     }

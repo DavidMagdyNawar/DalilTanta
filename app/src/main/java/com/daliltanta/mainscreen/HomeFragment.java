@@ -3,8 +3,13 @@ package com.daliltanta.mainscreen;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,7 +17,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
@@ -36,13 +44,12 @@ import java.util.List;
 
 public class HomeFragment extends Fragment implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
     SliderLayout sliderShow;
-    FloatingActionButton floatingActionButton = null;
-    private RecyclerView recyclerView;
     private DatabaseReference databaseReference;
-    ArrayList<MainItem> mainItems = new ArrayList<>();
-    Context context ;
-    CategoriesAdapter categoriesAdapter;
-
+    ArrayList<MainItem> mainItemArrayList = new ArrayList<>();
+    ViewPager viewPager;
+    TabLayout tabLayout;
+    LottieAnimationView lottieLoading;
+    LinearLayout nestedScrollView;
 
 
     public HomeFragment() {
@@ -52,6 +59,7 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -62,24 +70,13 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
         sliderShow.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         sliderShow.setCustomAnimation(new DescriptionAnimation());
         sliderShow.setDuration(4000);
-        floatingActionButton = (FloatingActionButton) root.findViewById(R.id.fab);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AddActivity addActivity = new AddActivity();
+        viewPager = (ViewPager) root.findViewById(R.id.viewpager);
+        tabLayout = (TabLayout) root.findViewById(R.id.sliding_tabs);
+        lottieLoading = root.findViewById(R.id.lottieLoading);
+        nestedScrollView=root.findViewById(R.id.myLinearLayout);
 
 
-                FragmentTransaction manger = getActivity().getSupportFragmentManager().beginTransaction();
-                addActivity.show(manger, null);
-            }
-        });
 
-
-        recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
-        int numberOfColumns=2;
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), numberOfColumns));
-        categoriesAdapter = new CategoriesAdapter(getActivity() ,mainItems);
-        recyclerView.setAdapter(categoriesAdapter);
         getMainItemFromFirebase();
 
 
@@ -90,20 +87,25 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
 
     //get main item from database
     public void getMainItemFromFirebase() {
-        DatabaseReference categRef=databaseReference.child("categories");
+        DatabaseReference categRef = databaseReference.child("categories");
         categRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-
-                mainItems.clear();
-
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                mainItemArrayList.clear();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     MainItem mainItem = postSnapshot.getValue(MainItem.class);
-                    mainItems.add(mainItem);
+                    mainItemArrayList.add(mainItem);
 
                 }
-                categoriesAdapter.notifyDataSetChanged();
+                viewPager.setAdapter(new HomeFragmentPagerAdapter(getChildFragmentManager(),
+                        getActivity(), mainItemArrayList));
+                tabLayout.setupWithViewPager(viewPager);
+                lottieLoading.pauseAnimation();
+                lottieLoading.setVisibility(View.GONE);
+                nestedScrollView.setVisibility(View.VISIBLE);
+
+
             }
 
             @Override
@@ -124,28 +126,26 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 String image = "";
-                List<String> imageList = new ArrayList<String> ();
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                List<String> imageList = new ArrayList<String>();
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
-                     image = (String) postSnapshot.child("image").getValue();
-                     imageList.add(image);
+                    image = (String) postSnapshot.child("image").getValue();
+                    imageList.add(image);
                     // initialize a SliderLayout
 
                 }
 
-                if(!imageList.equals(null))
-                {
-                for(int i = 0 ; i<imageList.size();i++){
-                    DefaultSliderView defaultSliderView = new DefaultSliderView(getActivity());
+                if (!imageList.equals(null)) {
+                    for (int i = 0; i < imageList.size(); i++) {
+                        DefaultSliderView defaultSliderView = new DefaultSliderView(getActivity());
 
-                    defaultSliderView
-                            .image(imageList.get(i))
-                            .setScaleType(BaseSliderView.ScaleType.Fit);
-                    sliderShow.addSlider(defaultSliderView);
-
+                        defaultSliderView
+                                .image(imageList.get(i))
+                                .setScaleType(BaseSliderView.ScaleType.Fit);
+                        sliderShow.addSlider(defaultSliderView);
 
 
-                }
+                    }
                 }
 
             }
@@ -191,4 +191,34 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
 
     }
     //slider ends
+
+
+    public class HomeFragmentPagerAdapter extends FragmentPagerAdapter {
+        private Context context;
+        ArrayList<MainItem> mainItemArrayList;
+
+        public HomeFragmentPagerAdapter(FragmentManager fm, Context context, ArrayList<MainItem> mainItemArrayList) {
+            super(fm);
+            this.context = context;
+            this.mainItemArrayList = mainItemArrayList;
+        }
+
+        @Override
+        public int getCount() {
+            return mainItemArrayList.size();
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            MainItem mainItem = mainItemArrayList.get(position);
+            return HomePageFragment.newInstance(mainItem.getMainItemID());
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            // Generate title based on item position
+            MainItem mainItem = mainItemArrayList.get(position);
+            return mainItem.getMainItemType();
+        }
+    }
 }

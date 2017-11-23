@@ -20,10 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class CategoryDetails extends AppCompatActivity {
-    private DatabaseReference databaseReference;
-    ArrayList<SubItem> subItems = new ArrayList<>();
-    RecyclerView recyclerView;
-    CategoryDetailsAdapter categoryDetailsAdapter;
+
     MainItem mainItem;
 
     @Override
@@ -32,42 +29,12 @@ public class CategoryDetails extends AppCompatActivity {
         setContentView(R.layout.activity_category_details);
         mainItem = (MainItem) getIntent().getSerializableExtra(ActivityUtils.MAIN_ITEM_KEY);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
-        recyclerView = (RecyclerView) findViewById(R.id.SubItemRecycler);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(
-                CategoryDetails.this,LinearLayoutManager.VERTICAL,false);
-        recyclerView.setLayoutManager(linearLayoutManager);
 
-         categoryDetailsAdapter = new CategoryDetailsAdapter(this,subItems);
-        recyclerView.setAdapter(categoryDetailsAdapter);
-        getSubItemFromFirebase();
 
 
 
     }
 
-    private void getSubItemFromFirebase() {
-        databaseReference.child("SubItem").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                subItems.clear();
-
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                    if(mainItem.getMainItemID().equals(postSnapshot.child("SubItem_id").getValue(String.class))) {
-                        SubItem subItem = postSnapshot.getValue(SubItem.class);
-                        subItems.add(subItem);
-                    }
-
-                }
-                categoryDetailsAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 
 
 }

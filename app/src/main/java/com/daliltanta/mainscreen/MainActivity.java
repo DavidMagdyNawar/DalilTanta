@@ -1,48 +1,26 @@
 package com.daliltanta.mainscreen;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
+import android.widget.Toast;
 
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigation;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationAdapter;
-import com.aurelhubert.ahbottomnavigation.AHBottomNavigationItem;
-import com.daimajia.slider.library.SliderLayout;
 import com.daliltanta.R;
+import com.daliltanta.addingitem.AddActivity;
 import com.daliltanta.utils.ActivityUtils;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+import com.luseen.spacenavigation.SpaceItem;
+import com.luseen.spacenavigation.SpaceNavigationView;
+import com.luseen.spacenavigation.SpaceOnClickListener;
 
 public class MainActivity extends AppCompatActivity  {
-    AHBottomNavigation bottomNavigation;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initalizeBottomNavigation();
+        initalizeBottomNavigation(savedInstanceState);
         initializeUI();
 
 
@@ -62,20 +40,28 @@ public class MainActivity extends AppCompatActivity  {
         }
     }
 
-    public void initalizeBottomNavigation(){
-        bottomNavigation = (AHBottomNavigation) findViewById(R.id.bottom_navigation);
-        int[] tabColors = getApplicationContext().getResources().getIntArray(R.array.tab_colors);
-        AHBottomNavigationAdapter navigationAdapter = new AHBottomNavigationAdapter(this, R.menu.bottom_navigation_main);
-        navigationAdapter.setupWithBottomNavigation(bottomNavigation, tabColors);
-        bottomNavigation.setDefaultBackgroundColor(Color.parseColor("#FDFDFD"));
-        bottomNavigation.setAccentColor(Color.parseColor("#F86A6C"));
-        bottomNavigation.setInactiveColor(Color.parseColor("#FA627A"));
-        bottomNavigation.setForceTint(false);
-        bottomNavigation.setOnTabSelectedListener(new AHBottomNavigation.OnTabSelectedListener() {
+    public void initalizeBottomNavigation(Bundle savedInstanceState){
+        SpaceNavigationView spaceNavigationView = (SpaceNavigationView) findViewById(R.id.space);
+        spaceNavigationView.showIconOnly();
+        spaceNavigationView.addSpaceItem(new SpaceItem(getResources().getString(R.string.home), R.drawable.ic_home_black_24dp));
+        spaceNavigationView.addSpaceItem(new SpaceItem(getResources().getString(R.string.my_items), R.drawable.ic_account_circle_black_24dp));
+        spaceNavigationView.addSpaceItem(new SpaceItem(getResources().getString(R.string.notifications), R.drawable.ic_notifications_black_24dp));
+        spaceNavigationView.setSpaceOnClickListener(new SpaceOnClickListener() {
             @Override
-            public boolean onTabSelected(int position, boolean wasSelected) {
-                // Do something cool here...
-                return true;
+            public void onCentreButtonClick() {
+                AddActivity addActivity = new AddActivity();
+                FragmentTransaction manger = getSupportFragmentManager().beginTransaction();
+                addActivity.show(manger, null);
+            }
+
+            @Override
+            public void onItemClick(int itemIndex, String itemName) {
+                Toast.makeText(MainActivity.this, itemIndex + " " + itemName, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onItemReselected(int itemIndex, String itemName) {
+                Toast.makeText(MainActivity.this, itemIndex + " " + itemName, Toast.LENGTH_SHORT).show();
             }
         });
 

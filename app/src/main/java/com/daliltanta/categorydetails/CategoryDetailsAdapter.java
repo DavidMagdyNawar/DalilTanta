@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.daliltanta.R;
@@ -14,6 +15,8 @@ import com.daliltanta.data.MainItem;
 import com.daliltanta.data.SubItem;
 import com.daliltanta.mainscreen.CategoriesAdapter;
 import com.google.firebase.database.DatabaseReference;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,28 +37,21 @@ public class CategoryDetailsAdapter extends RecyclerView.Adapter<CategoryDetails
     @Override
     public CategoryDetailsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.categorie_details_item, parent, false);
+                .inflate(R.layout.item_design, parent, false);
         return new ViewHolder(itemView);
     }
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-//        String SubItem_id;
-//        String SubItem_user_id;
-//        String SubItem_request_id;
-//        List<String> SubItem_shop_IDs;
 
-        FontTextView SubItem_description,SubItemUserName ;
-        ImageView SubItem_approved,SubItemImage,SubItem_privacy;
+        TextView SubItem_description ;
+        ImageView SubItemImage;
         public ViewHolder(View itemView) {
             super(itemView);
 
-            SubItem_approved = (ImageView) itemView.findViewById(R.id.approved);
             SubItemImage = (ImageView) itemView.findViewById(R.id.SubItemImage);
-            SubItem_privacy = (ImageView) itemView.findViewById(R.id.SubItem_privacy);
-            SubItem_description = (FontTextView) itemView.findViewById(R.id.SubItem_description);
-            SubItemUserName = (FontTextView) itemView.findViewById(R.id.SubItemUserName);
+            SubItem_description = (TextView) itemView.findViewById(R.id.SubItem_description);
         }
     }
 
