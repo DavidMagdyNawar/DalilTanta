@@ -1,5 +1,6 @@
 package com.daliltanta.mainscreen;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,7 @@ import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.daliltanta.R;
 import com.daliltanta.addingitem.AddActivity;
+import com.daliltanta.data.MainItem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,6 +39,10 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
     FloatingActionButton floatingActionButton = null;
     private RecyclerView recyclerView;
     private DatabaseReference databaseReference;
+    ArrayList<MainItem> mainItems = new ArrayList<>();
+    Context context ;
+    CategoriesAdapter categoriesAdapter;
+
 
 
     public HomeFragment() {
@@ -56,12 +62,12 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
         sliderShow.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
         sliderShow.setCustomAnimation(new DescriptionAnimation());
         sliderShow.setDuration(4000);
-
         floatingActionButton = (FloatingActionButton) root.findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AddActivity addActivity = new AddActivity();
+
 
                 FragmentTransaction manger = getActivity().getSupportFragmentManager().beginTransaction();
                 addActivity.show(manger, null);
@@ -72,13 +78,45 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
         recyclerView = (RecyclerView) root.findViewById(R.id.recyclerView);
         int numberOfColumns=2;
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), numberOfColumns));
-        CategoriesAdapter categoriesAdapter = new CategoriesAdapter();
+        categoriesAdapter = new CategoriesAdapter(getActivity() ,mainItems);
         recyclerView.setAdapter(categoriesAdapter);
+        getMainItemFromFirebase();
+
 
         getSliderItems();
 
         return root;
     }
+
+    //get main item from database
+    public void getMainItemFromFirebase() {
+        DatabaseReference categRef=databaseReference.child("categories");
+        categRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                mainItems.clear();
+
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    MainItem mainItem = postSnapshot.getValue(MainItem.class);
+                    mainItems.add(mainItem);
+
+                }
+                categoriesAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+    //end of retrieving
+
+
+    //slider starts
 
     private void getSliderItems() {
         databaseReference.child("slider_items").addValueEventListener(new ValueEventListener() {
@@ -152,4 +190,5 @@ public class HomeFragment extends Fragment implements BaseSliderView.OnSliderCli
     public void onPageScrollStateChanged(int state) {
 
     }
+    //slider ends
 }

@@ -9,6 +9,8 @@ import android.support.v4.app.FragmentTransaction;
  */
 
 public class ActivityUtils {
+
+    public final static String MAIN_ITEM_KEY ="MainItemKey";
     public static void addFragmentToActivity (FragmentManager fragmentManager,
                                               Fragment fragment, int frameId) {
 

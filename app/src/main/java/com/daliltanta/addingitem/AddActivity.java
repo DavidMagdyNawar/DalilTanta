@@ -22,6 +22,7 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.daliltanta.R;
+import com.daliltanta.data.SubItem;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,12 +31,12 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 
-public class AddActivity extends android.support.v4.app.DialogFragment {
+public class AddActivity extends android.support.v4.app.DialogFragment implements AdapterView.OnItemSelectedListener
+{
     View view;
-    EditText betdawatEditText;
+    EditText descriptionET;
     ImageButton imageToIpload;
     Switch switchkey;
     Uri imageUri;
@@ -46,8 +47,9 @@ public class AddActivity extends android.support.v4.app.DialogFragment {
     Spinner spinnerSearch;
     private static final int PICK_IMAGE = 100;
     private DatabaseReference databaseReference;
-    private Map<String, String> mapData = new HashMap<>();
     private ArrayList<String> ArrayValuesItemCat;
+    private ArrayList<String> ArrayValuesItemID;
+
     private ArrayAdapter<String> adapter;
 
 
@@ -65,7 +67,7 @@ public class AddActivity extends android.support.v4.app.DialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        betdawatEditText = (EditText) view.findViewById(R.id.betdawarEditText);
+        descriptionET = (EditText) view.findViewById(R.id.descriptionET);
         imageToIpload = (ImageButton) view.findViewById(R.id.itemImageToUpload);
         switchkey = (Switch) view.findViewById(R.id.switch1);
         IsUploadedIV = (ImageView) view.findViewById(R.id.IsUploadedIV);
@@ -74,9 +76,9 @@ public class AddActivity extends android.support.v4.app.DialogFragment {
         buttonYalla = (Button) view.findViewById(R.id.yallaButton);
         databaseReference = FirebaseDatabase.getInstance().getReference();
         spinnerSearch = (Spinner) view.findViewById(R.id.SpinnerCategorieSearch);
+        ArrayValuesItemCat=new ArrayList<>();
+        ArrayValuesItemID = new ArrayList<>();
         getItemCategories();
-
-
 
 
     }
@@ -104,6 +106,37 @@ public class AddActivity extends android.support.v4.app.DialogFragment {
                 imageRelativeLO.setVisibility(View.GONE);
             }
         });
+        buttonYalla.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (spinnerSearch.getSelectedItemPosition()==0) {
+                    onNothingSelected();
+                }
+                else {
+                    Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
+//                    HashMap<String,String> shopsHaveID = new HashMap<>() ;
+//                    shopsHaveID.put("","");
+//                    int position = spinnerSearch.getSelectedItemPosition();
+//                    String myID = ArrayValuesItemID.get(position);
+//
+//                    SubItem subItem = new SubItem();
+////                    subItem.setSubItem_request_id("");
+//
+//                    subItem.setSubItem_approved("false");
+//                    subItem.setSubItem_description(descriptionET.getText().toString());
+//                    subItem.setSubItem_id(myID);
+//                    subItem.setSubItem_shop_IDs(shopsHaveID);
+//                    if(switchkey.isChecked())
+//                    {
+//                        subItem.setSubItem_privacy("true");
+//                    }
+//                    else if(!switchkey.isChecked())
+//                    {
+//                        subItem.setSubItem_privacy("false");
+//                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -115,36 +148,41 @@ public class AddActivity extends android.support.v4.app.DialogFragment {
 
     }
 
-
-
-
-
-
-
-
-
+//Spinner Categories starts
     private void getItemCategories() {
 
         try {
-            databaseReference.child("clothes").addValueEventListener(new ValueEventListener() {
+            databaseReference.child("categories").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.getValue() != null) {
-                        mapData = (HashMap<String, String>) dataSnapshot.getValue();
-                        ArrayValuesItemCat = new ArrayList<>(mapData.keySet());
-
-                        adapter = new ArrayAdapter<String>(getContext(),
-                                android.R.layout.simple_spinner_item, ArrayValuesItemCat);
-
-                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                        spinnerSearch.setAdapter(adapter);
-
-                        spinnerSearch.setAdapter(
-                                new NothingSelectedSpinnerAdapter(
-                                        adapter,
-                                        R.layout.for_spinner_search,
-                                        getContext()));
+                    if(ArrayValuesItemCat.size() !=0) {
+                        ArrayValuesItemCat.clear();
                     }
+
+                    for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+
+                        String categorieTitle = postSnapshot.child("mainItemType").getValue(String.class);
+                        ArrayValuesItemCat.add(categorieTitle);
+
+                        String categorieID = postSnapshot.child("mainItemID").getValue(String.class);
+                        ArrayValuesItemID.add(categorieID);
+
+                    }
+
+
+                    if(ArrayValuesItemCat.size()!=0) {
+                           adapter = new ArrayAdapter<String>(getContext(),
+                                   android.R.layout.simple_spinner_item, ArrayValuesItemCat);
+
+                           adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                           spinnerSearch.setAdapter(adapter);
+
+                           spinnerSearch.setAdapter(
+                                   new NothingSelectedSpinnerAdapter(
+                                           adapter,
+                                           R.layout.for_spinner_search,
+                                           getContext()));
+                       }
 
                 }
 
@@ -158,5 +196,21 @@ public class AddActivity extends android.support.v4.app.DialogFragment {
         }
 
     }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        Toast.makeText(getContext(), "Make Sure you choose from spinner", Toast.LENGTH_SHORT).show();
+    }
+
+    public void onNothingSelected() {
+
+        Toast.makeText(getContext(), "Make Sure you choose from spinner", Toast.LENGTH_SHORT).show();
+    }
+    //Spinner Categories ends
 }
 

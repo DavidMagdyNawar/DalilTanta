@@ -6,6 +6,7 @@
     <string name="Have">Have this</string>
     <string name="loginAsShop">Login As a Shop</string>
     <string name="loginAssUser">Login As a User</string>
+    <string name="singWithFacebook">Sign in with facebook</string>
     <string name="name">Shop Name</string>
     <string name="address">Address</string>
     <string name="auth_failed">auth failed</string>
@@ -17,5 +18,6 @@
     <string name="home">Home</string>
     <string name="my_items">My Items</string>
     <string name="notifications">Notifications</string>
+    <string name="facebook_app_id">301432483688418</string>
 
 </resources>
