@@ -34,11 +34,16 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginWithFacebook extends AppCompatActivity {
 
     private static final String TAG = "FacebookLogin";
-
+    private DatabaseReference databaseReference;
     User user;
 
     // [START declare_auth]
@@ -54,7 +59,7 @@ public class LoginWithFacebook extends AppCompatActivity {
         FacebookSdk.setApplicationId(APP_ID);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_login_with_facebook);
-
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
 
 
@@ -66,12 +71,14 @@ public class LoginWithFacebook extends AppCompatActivity {
         // [START initialize_fblogin]
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
-        LoginButton loginButton = (LoginButton) findViewById(R.id.button_facebook_login);
+        final LoginButton loginButton =  findViewById(R.id.button_facebook_login);
         loginButton.setReadPermissions("email", "public_profile");
+
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
+                loginButton.setVisibility(View.GONE);
                 handleFacebookAccessToken(loginResult.getAccessToken());
 
             }
@@ -88,7 +95,7 @@ public class LoginWithFacebook extends AppCompatActivity {
             @Override
             public void onError(FacebookException error) {
                 Log.d(TAG, "facebook:onError", error);
-                Toast.makeText(LoginWithFacebook.this, "error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginWithFacebook.this, "error" + error.toString(), Toast.LENGTH_SHORT).show();
                 // [START_EXCLUDE]
 //                updateUI(null);
                 // [END_EXCLUDE]
@@ -102,7 +109,7 @@ public class LoginWithFacebook extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
 //        updateUI(currentUser);
     }
     // [END on_start_check_user]
@@ -134,12 +141,18 @@ public class LoginWithFacebook extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             user = new User();
                             FirebaseUser firebaseUser = mAuth.getCurrentUser();
+
                             String userName = firebaseUser.getDisplayName();
-                            String userID = String.valueOf(firebaseUser.getIdToken(true));
+                            String userID = firebaseUser.getUid();
                             user.setUserID(userID);
                             user.setUserName(userName);
+                            setUserTofirebaseDatabase(user);
+
                             Intent intent = new Intent(LoginWithFacebook.this,MainActivity.class);
                             startActivity(intent);
+                            Toast.makeText(LoginWithFacebook.this, "User name is " + userName + " user ID is " + userID, Toast.LENGTH_SHORT).show();
+                            finish();
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -154,22 +167,31 @@ public class LoginWithFacebook extends AppCompatActivity {
                     }
                 });
     }
+
+    private void setUserTofirebaseDatabase(final User user) {
+
+        final DatabaseReference reference = databaseReference.child("Users");
+
+
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                    if(!postSnapshot.hasChild(user.getUserID())){
+                        reference.child(user.getUserID()).setValue(user);
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
     // [END auth_with_facebook]
-
-
-
-//    private void updateUI(FirebaseUser user) {
-////        hideProgressDialog();
-//        if (user != null) {
-//
-//
-//            Intent intent = new Intent(LoginWithFacebook.this,MainActivity.class);
-//            startActivity(intent);
-//        } else {
-//
-//            findViewById(R.id.button_facebook_login).setVisibility(View.VISIBLE);
-//
-//        }
-//    }
-
 }

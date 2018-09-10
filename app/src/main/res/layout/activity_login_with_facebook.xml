@@ -7,13 +7,6 @@
     tools:context=".userauthentication.LoginWithFacebook"
     >
 
-    <!--<ImageView-->
-    <!--android:id="@+id/logo"-->
-    <!--android:layout_width="120dp"-->
-    <!--android:layout_height="120dp"-->
-    <!--android:layout_centerInParent="true"-->
-    <!--android:src="@drawable/ic_location_city" />-->
-
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/button_facebook_login"
@@ -24,23 +17,14 @@
         android:layout_marginBottom="132dp"
         app:cardCornerRadius="10dp"
 
+
         >
     </com.facebook.login.widget.LoginButton>
 
 
-    <!--<com.facebook.login.widget.LoginButton-->
-        <!--android:id="@+id/button_facebook_signout"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:layout_centerHorizontal="true"-->
-        <!--android:layout_marginBottom="132dp"-->
-        <!--app:cardCornerRadius="10dp"-->
-
-        <!--&gt;-->
 
 
 
-    <!--</com.facebook.login.widget.LoginButton>-->
+
 
 </RelativeLayout>

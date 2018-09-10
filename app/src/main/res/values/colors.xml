@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#FFFFFF</color>
-    <color name="colorPrimaryDark">#F3F2F7</color>
-    <color name="colorAccent">#F7A938</color>
+    <color name="colorPrimary">#FFF9C4</color>
+    <color name="secondary">#FFFDE7</color>
+
+    <color name="colorPrimaryDark">#27272F</color>
+    <color name="colorAccent">#33333D</color>
+
     <color name="white">#FDFDFD</color>
     <color name="darkWhite">#F3F2F7</color>
     <color name="textColor">#9FA0AD</color>
+
+    <color name="colorControlActivated">#FBB8AC</color>
 
     <array name="tab_colors">
         <item name="tab_1">#F86A6C</item>
@@ -17,4 +22,13 @@
     <color name="colorCenterButton">#777783</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="textColorDark">#383742</color>
+
+
+
+    <color name="toolbarIconColor">#FFCF44</color>
+    <color name="loginPageBackgroundColor">#414149</color>
+    <color name="productGridBackgroundColor">#FFFFFF</color>
+    <color name="whitefff">#FFFFFF</color>
+
+
 </resources>

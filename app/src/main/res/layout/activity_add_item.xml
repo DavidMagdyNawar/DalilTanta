@@ -27,7 +27,8 @@ android:orientation="vertical">
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_margin="4dp"
-    android:gravity="left">
+    android:gravity="left"
+    android:layout_below="@id/SpinnerCategorieSearch">
 
 
 

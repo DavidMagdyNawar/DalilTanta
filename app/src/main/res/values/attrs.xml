@@ -3,4 +3,5 @@
     <declare-styleable name="FontText">
         <attr name="fontAsset" format="string"/>
     </declare-styleable>
+
 </resources>
